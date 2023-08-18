@@ -5,12 +5,9 @@ import {Header} from './components/Header.js';
 import {Login} from './pages/Login.js';
 import {Signup} from './pages/Signup.js';
 import {Home} from './pages/Home.js';
-import { LocalizationProvider } from '@mui/x-date-pickers';
-import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs'
 function App() {
   return (
     <div className="attributes">
-      <LocalizationProvider dateAdapter={AdapterDayjs}>
       <Router>
         <Header />
         <Routes>
@@ -23,7 +20,6 @@ function App() {
           <Route exact path = "/home" element={<Home/>}/>
         </Routes>
       </Router>
-      </LocalizationProvider>
     </div>
   );
 }

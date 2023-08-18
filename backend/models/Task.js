@@ -1,4 +1,4 @@
-const mongoose = require('mongoose');
+import mongoose from "mongoose";
 const { Schema } = mongoose;
 
 const TaskSchema = new Schema({
@@ -23,9 +23,9 @@ const TaskSchema = new Schema({
         required: true, 
     },
     isCompleted:{
-        type:boolean,
+        type:Boolean,
         required: true,
-    }
+    },
   });
 
-  module.exports = mongoose.model('tasks', TaskSchema);
+export const TaskModel = mongoose.model('tasks', TaskSchema);

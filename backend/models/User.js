@@ -19,5 +19,9 @@ const UserSchema = new Schema({
         type: Date,
         default: Date.now
     },
+    importantTasks:{
+        type:[{type:mongoose.Schema.Types.ObjectId}],
+        ref: 'tasks'
+    },
   });
   export const UserModel = mongoose.model("user",UserSchema);

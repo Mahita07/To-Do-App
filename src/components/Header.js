@@ -1,14 +1,8 @@
 import * as React from 'react';
-import Container from "react-bootstrap/Container";
-import Nav from "react-bootstrap/Nav";
-import Navbar from "react-bootstrap/Navbar";
-import Button from "react-bootstrap/Button";
+import { Container, Nav, Button, Form, Modal, Navbar } from 'react-bootstrap';
 import { useState } from "react";
-import Form from "react-bootstrap/Form";
-import Modal from "react-bootstrap/Modal";
-import { DatePicker } from "@mui/x-date-pickers";
 import { useNavigate } from 'react-router-dom';
-
+import moment from 'moment';
 
 export function Header() {
   const navigate = useNavigate();
@@ -16,22 +10,16 @@ export function Header() {
   const handleClose = () => setShow(false);
   const handleShow = () => setShow(true);
   const [error, setError] = React.useState(null);
-  const errorMessage = React.useMemo(() => {
-    switch (error) {
-      case 'invalidDate': {
-        return 'Enter a valid date';
-      }
-
-      default: {
-        return '';
-      }
-    }
-  }, [error]);
+  /*const errorMessage = React.useMemo(() => {
+    
+  }, [error]);*/
+  
   const [task,setTask]= useState({
       name:"",
       category:"",
       description:"",
-      deadline:""
+      deadline:new Date(),
+      isCompleted:false,
   });
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -41,7 +29,8 @@ export function Header() {
     }));
   };
 
-  const handleDateChange = (date) => {
+  const handleDateChange = (event) => {
+    const date = event.target.value;
     setTask((prevTask) => ({
       ...prevTask,
       deadline: date
@@ -67,8 +56,7 @@ export function Header() {
       event.preventDefault();
       console.log('Submit clicked')
       try{
-            console.log(task);
-            console.log(task.deadline.$D+'/'+(task.deadline.$M+1)+'/'+task.deadline.$y)
+            console.log(task);     
       }
       catch(err){
             console.error(err);
@@ -139,16 +127,10 @@ export function Header() {
                 >
                   <Form.Label>Deadline</Form.Label>
                     <div>
-                        <DatePicker disablePast
+                        <input type="date"
                         name="deadline"
                         value={task.deadline}
                         onChange={handleDateChange}
-                        onError={(newError) => setError(newError)}
-                        slotProps={{
-                          textField: {
-                            helperText: errorMessage,
-                          },
-                        }}
                         />
                     </div>
                 </Form.Group>

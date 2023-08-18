@@ -1,7 +1,6 @@
 import { useState } from "react";
 import axios from "axios";
-import Button from "react-bootstrap/Button";
-import Form from "react-bootstrap/Form";
+import {Button, Form} from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 export const Signup = () => {
     const navigate = useNavigate();
