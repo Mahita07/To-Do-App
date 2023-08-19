@@ -42,6 +42,22 @@ router.post("/login", async (req,res) =>{
 
 });
 
+//get username 
+router.get("/", async(req,res)=>{
+    const userId = req.query.userId;
+    try{
+        const user = await UserModel.findOne({_id:userId});
+        console.log(userId,user);
+        if(!user){
+            return res.json({message:"Invalid user"})
+        }
+        return res.json({user});
+    }
+    catch(err){
+        return res.json(err);
+    }  
+})
+
 
 
 

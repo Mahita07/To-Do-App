@@ -52,7 +52,7 @@ router.put("/", async(req,res) =>{
 });
 
 //get the task based on id
-router.get('/',async(req,res) =>{
+router.get('/:task_id',async(req,res) =>{
     const task = await TaskModel.findOne({_id:req.body.task_id});
     console.log(task);
     if(!task){
@@ -62,5 +62,7 @@ router.get('/',async(req,res) =>{
         return res.json({task});
     }
 })
+
+
 
 export {router as taskRouter};

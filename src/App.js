@@ -5,6 +5,7 @@ import {Header} from './components/Header.js';
 import {Login} from './pages/Login.js';
 import {Signup} from './pages/Signup.js';
 import {Home} from './pages/Home.js';
+import { First} from './pages/First.js';
 function App() {
   return (
     <div className="attributes">
@@ -15,8 +16,7 @@ function App() {
           <Route exact path = "user/login" element={<Login />}/>
           <Route
           exact path="/"
-          element={!window.localStorage.getItem("accessToken") ? <Login /> : <Home />}
-        />
+          element={<First/>}/>
           <Route exact path = "/home" element={<Home/>}/>
         </Routes>
       </Router>
