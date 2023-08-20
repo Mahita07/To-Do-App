@@ -23,5 +23,14 @@ const UserSchema = new Schema({
         type:[{type:mongoose.Schema.Types.ObjectId}],
         ref: 'tasks'
     },
+    pendingTasks:{
+        type:[{type:mongoose.Schema.Types.ObjectId}],
+        ref:'tasks'
+    },
+    completedTasks:{
+        type:[{type:mongoose.Schema.Types.ObjectId}],
+        ref:'tasks'
+    }
+
   });
   export const UserModel = mongoose.model("user",UserSchema);

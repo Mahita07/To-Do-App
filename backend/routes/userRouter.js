@@ -2,7 +2,7 @@ import express from "express";
 import bcrypt from "bcrypt"
 import jwt from "jsonwebtoken";
 import { UserModel } from "../models/User.js";
-
+import { TaskModel } from "../models/Task.js";
 const router = express.Router();
 
 //Route 1: for new user to sign up
@@ -57,6 +57,7 @@ router.get("/", async(req,res)=>{
         return res.json(err);
     }  
 })
+
 
 
 
