@@ -1,5 +1,6 @@
 import axios from "axios";
-import { Button, Form, Modal, Card } from "react-bootstrap";
+import CustomCard from "../components/CustomCard.js";
+import { Button, Form, Modal } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 export const Home = () => {
   const [tasks, setTasks] = useState();
@@ -172,22 +173,15 @@ export const Home = () => {
       </div>
       <div
         className="d-flex flex-wrap"
-        style={{ margin: "10px", justifyContent: "space-around" }}
+        style={{ margin: "10px", justifyContent: "space-evenly" }}
       >
         {tasks.map((task) => (
-          <Card key={task._id} style={{ width: "18em" }}>
-            <Card.Body>
-              <Card.Title>{task.name}</Card.Title>
-              <Card.Subtitle className="mb-2 text-muted">
-                {task.category}
-              </Card.Subtitle>
-              <Card.Text>{task.description}</Card.Text>
-              <Button onClick={() => handleImportant(task._id)}>
-                {task._id}
-              </Button>
-              <Button onClick={() => handleCompleted(task._id)}>Completed</Button>
-            </Card.Body>
-          </Card>
+          <CustomCard
+          key={task._id}
+          task={task}
+          handleImportant={handleImportant}
+          handleCompleted={handleCompleted}
+        />
         ))}
       </div>
     </>
