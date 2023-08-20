@@ -7,32 +7,33 @@ const CustomCard = ({ task, handleImportant, handleCompleted }) => {
   }
   const decideBorderColor = (task) =>{
     const taskDeadline = new Date(task.deadline)
-    console.log(taskDeadline-Date.now())
     if(convertToDays(taskDeadline-Date.now())<=1){
-        return "red";
+        return {border:"red",bodyColor:"#FFD9D9",variant:"danger"};
     }
     else if(convertToDays(taskDeadline-Date.now())<=3){
-      return "yellow";
+      return {border:"#FFDF00",bodyColor:"#FFF4BC",variant:"warning"};
     }
     else{
-        return "green";
+        return {border:"#000080",bodyColor:"#D9EAF5",variant:"primary"};
     }
   }
-  const border = decideBorderColor(task);
+  const Style = decideBorderColor(task);
   return (
-    <Card style={{ width: '18em', margin: '10px', border:`2px solid ${border}`}}>
+    <Card style={{ width: '18em', margin: '10px', border:`2px solid ${Style.border}`, background:`${Style.bodyColor}`}}>
       <Card.Body>
         <Card.Title>{task.name}</Card.Title>
-        <Card.Subtitle className="mb-2 text-muted">
-          {task.category}
+        <div >
+        <Card.Subtitle className="mb-2 text-muted" style={{display:"flex", justifyContent:"space-between"}}>
+            <div className="category">{task.category}</div>
+            <div className="deadline">{moment(task.deadline.substr(0, 10)).format("DD-MM-YYYY")}</div>
         </Card.Subtitle>
+        </div>
         <Card.Text>{task.description}</Card.Text>
-        <Card.Text>{moment(task.deadline.substr(0,10)).format("DD-MM-YYYY")}</Card.Text>
         <div style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-evenly' }}>
-          <Button variant="danger" onClick={() => handleImportant(task._id)}>
+          <Button variant = {Style.variant} style={{backgroundColor:`${Style.border}`, border:`2px solid ${Style.border}`}} onClick={() => handleImportant(task._id)}>
             Important
           </Button>
-          <Button variant="success" onClick={() => handleCompleted(task._id)}>
+          <Button  variant="light"   style={{border:"black"}} onClick={() => handleCompleted(task._id)}>
             Done
           </Button>
         </div>

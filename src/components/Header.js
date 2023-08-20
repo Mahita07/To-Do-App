@@ -1,7 +1,6 @@
-import * as React from 'react';
-import { Container, Nav, Navbar } from 'react-bootstrap';
+import  React from 'react';
+import { Container, Nav, Navbar, NavLink } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
-
 export function Header() {
   const navigate = useNavigate();
   const handleSignup = () =>{
@@ -19,7 +18,17 @@ export function Header() {
     window.location.reload();
   }
 
+  const handleImportant = () =>{
+    if(window.localStorage.getItem("accessToken")){
+      navigate('/important');
+    }
+  }
 
+  const handleCompleted = () =>{
+    if(window.localStorage.getItem("accessToken")){
+      navigate('/completed');
+    }
+  }
 
   return (
     <Navbar expand="lg" className="bg-body-tertiary">
@@ -28,8 +37,8 @@ export function Header() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="me-auto">
-            <Nav.Link href="#home">Home</Nav.Link>
-            <Nav.Link href="#link">Important</Nav.Link>
+            <NavLink to="/important" onClick={handleImportant}>Important</NavLink>
+            <NavLink to="/completed" onClick={handleCompleted}>Completed</NavLink>
           </Nav>
         </Navbar.Collapse>
       </Container>

@@ -42,12 +42,12 @@ router.post("/login", async (req,res) =>{
 
 });
 
-//get username 
+//get user
 router.get("/", async(req,res)=>{
     const userId = req.query.userId;
     try{
         const user = await UserModel.findOne({_id:userId});
-        console.log(userId,user);
+        //console.log(userId,user);
         if(!user){
             return res.json({message:"Invalid user"})
         }
@@ -57,8 +57,6 @@ router.get("/", async(req,res)=>{
         return res.json(err);
     }  
 })
-
-
 
 
 

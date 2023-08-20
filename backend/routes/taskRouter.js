@@ -4,10 +4,10 @@ import { UserModel } from '../models/User.js';
 import {ObjectId} from 'mongodb';
 const router = express.Router();
 
+
 //get all tasks on home page 
-router.get("/",async(req,res) =>{
+router.get("/alltasks",async(req,res) =>{
     const userId = new ObjectId(req.query.userId);
-    console.log(userId);
     try{
         const response = await TaskModel.find({user:userId});
         res.json(response);
@@ -19,9 +19,9 @@ router.get("/",async(req,res) =>{
 })
 
 //get the task based on id
-router.get('/:task_id',async(req,res) =>{
-    const task = await TaskModel.findOne({_id:req.body.task_id});
-    console.log(task);
+router.get('/',async(req,res) =>{
+    const taskId = req.query.taskId;
+    const task = await TaskModel.findOne({_id:taskId});
     if(!task){
         return res.json({message:"Invalid task id"});
     }
@@ -29,6 +29,7 @@ router.get('/:task_id',async(req,res) =>{
         return res.json({task});
     }
 })
+
 //post new task 
 router.post("/", async(req,res) =>{
     const newTaskData= req.body;
@@ -46,7 +47,6 @@ router.post("/", async(req,res) =>{
 router.put("/update_pending_task", async(req,res)=>{
     const taskId = req.body.taskId;
     const userId = req.body.userId;
-    console.log(taskId,userId);
     try{
         const user = await UserModel.findOne({_id:userId});
         const task = await TaskModel.findOne({_id:taskId});
@@ -66,11 +66,9 @@ router.put("/update_pending_task", async(req,res)=>{
 router.put("/important", async(req,res) =>{
     const taskId = req.body.taskId;
     const userId = req.body.userId;
-    console.log(taskId,userId);
     try{
         const task = await TaskModel.findOne({_id:taskId});
         const user = await UserModel.findOne({_id:userId});
-        //console.log(task);
         if(!task || !user){
             return res.json({message:"Invalid user or task"});
         }
@@ -89,7 +87,7 @@ router.put("/important", async(req,res) =>{
 });
 
 //appending important task to user
-router.put("/update_important_task", async(req,res)=>{
+/*router.put("/update_important_task", async(req,res)=>{
     const taskId = req.body.taskId;
     const userId = req.body.userId;
     //console.log(taskId,userId);
@@ -106,13 +104,12 @@ router.put("/update_important_task", async(req,res)=>{
     catch(err){
         return res.json(err);
     }
-});
+});*/
 
 //marking task as complete 
 router.put("/complete", async(req,res)=>{
     const taskId = req.body.taskId;
     const userId = req.body.userId;
-    console.log(taskId,userId);
     try{
         const task = await TaskModel.findOne({_id:taskId});
         const user = await UserModel.findOne({_id:userId});
@@ -136,7 +133,7 @@ router.put("/complete", async(req,res)=>{
 
 
 //append completed tasks
-router.put("/update_completed_task", async(req,res)=>{
+/*router.put("/update_completed_task", async(req,res)=>{
     const taskId = req.body.taskId;
     const userId = req.body.userId;
     //console.log(taskId,userId);
@@ -153,7 +150,7 @@ router.put("/update_completed_task", async(req,res)=>{
     catch(err){
         return res.json(err);
     }
-});
+});*/
 
 
 

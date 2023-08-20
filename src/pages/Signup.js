@@ -37,7 +37,7 @@ export const Signup = () => {
                 await axios.post("http://localhost:3001/user/signup", 
                 {name,email,password});
                 alert("Sign up completed, login to continue !")
-                navigate('user/login')
+                navigate('/user/login')
               } 
               else{
                 alert('Passwords not matching !')

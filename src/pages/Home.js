@@ -3,7 +3,7 @@ import CustomCard from "../components/CustomCard.js";
 import { Button, Form, Modal } from "react-bootstrap";
 import React, { useState, useEffect } from "react";
 export const Home = () => {
-  const [tasks, setTasks] = useState();
+  const [tasks, setTasks] = useState([]);
   const [username, setUsername] = useState();
   const [show, setShow] = useState(false);
   const handleClose = () => setShow(false);
@@ -46,6 +46,7 @@ export const Home = () => {
                 userId:userId
               })
       alert("Task added successfully !");
+      window.location.reload();
     } catch (err) {
       console.error(err);
     }
@@ -58,10 +59,10 @@ export const Home = () => {
         taskId: taskId,
         userId: userId,
       });
-      await axios.put("http://localhost:3001/task/update_important_task", {
+      /*await axios.put("http://localhost:3001/task/update_important_task", {
         taskId: taskId,
         userId: userId,
-      });
+      });*/
       return alert("Task saved to Important.");
     } catch (err) {
       console.error(err);
@@ -80,15 +81,36 @@ export const Home = () => {
     }
   };
 
+  /*const orderByDeadline = async(taskId1,taskId2) =>{
+    try{
+      const task1 = await axios.get("http://localhost:3001/task",{
+        params:{
+          task_id:taskId2,
+        }
+      });
+      const task2 = await axios.get("http://localhost:3001/task",{
+        params:{
+          task_id:taskId2,
+        }
+      });
+      return task1.deadline-task2.deadline;
+    }
+    catch(err){
+      console.error(err);
+    }    
+
+  }*/
+
   useEffect(() => {
     const fetchTaskData = async () => {
       try {
-        const response = await axios.get("http://localhost:3001/task", {
+        const response = await axios.get("http://localhost:3001/task/alltasks", {
           params: {
           userId: userId,
         },
       });
         if(response) {
+          //tasks.sort((task1, task2) => task1.deadline - task2.deadline);
           setTasks(response.data);
         }
         const response1 = await axios.get("http://localhost:3001/user", {
